@@ -158,22 +158,22 @@ const Element = (props: ElementProps): JSX.Element => {
     <div
       ref={ref}
       tabIndex={0}
-      className='badge bg-secondary bg-gradient pr-0 mr-1 my-1'
-      style={{
-        fontSize: 'inherit',
-        fontWeight: 'inherit'
-      }}
+      className='badge bg-secondary bg-gradient mr-1 my-auto py-auto pr-0 '
       onKeyDown={onkeydown}
     >
       {props.value}
       <button
         aria-label='remove path fragment'
         tabIndex={-1}
-        className='border-0 bg-transparent ml-3 mr-1 my-0 px-0'
+        className='border-0 bg-transparent ml-3 mr-1 my-auto py-auto px-0'
         style={{ outline: 0 }}
         onClick={onclick}
       >
-        <Cancel style={{ fill: 'var(--bs-white)', opacity: 1 }} />
+        <Cancel
+          style={{ fill: 'var(--bs-white)', opacity: 1 }}
+          width={18}
+          height={18}
+        />
       </button>
     </div>
   )

@@ -11,8 +11,8 @@ const App = () => {
       <InputTags values={state} onChange={(values) => setState(values)} />
       <hr />
       <ol>
-        {state.map((item) => (
-          <li>{item}</li>
+        {state.map((item, index) => (
+          <li key={item + index}>{item}</li>
         ))}
       </ol>
     </div>
