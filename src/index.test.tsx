@@ -1,6 +1,6 @@
 import { InputTags } from '.'
 
-describe('ExampleComponent', () => {
+describe('InputTags', () => {
   it('is truthy', () => {
     expect(InputTags).toBeTruthy()
   })

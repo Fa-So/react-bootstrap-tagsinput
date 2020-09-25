@@ -1,5 +1,11 @@
 // eslint-disable-next-line no-use-before-define
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, {
+  HtmlHTMLAttributes,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
 import './styles.module.scss'
 import { Cancel, Delete } from './svg-icons'
 
@@ -14,8 +20,9 @@ export const InputTags = ({
   placeholder,
   values,
   onChange,
-  iconClear = <Delete />
-}: InputTagsProps): JSX.Element => {
+  iconClear = <Delete />,
+  ...rest
+}: InputTagsProps & HtmlHTMLAttributes<HTMLInputElement>): JSX.Element => {
   const [terms, setTerms] = useState<string[]>(values)
   const [value, setValue] = useState('')
   const [focusIndex, setFocusIndex] = useState(-1)
@@ -67,7 +74,7 @@ export const InputTags = ({
   const onremove = (index: number, focus: boolean) => {
     setTerms(terms.filter((_, i) => i !== index))
     if (focus) {
-      setFocusIndex(focusIndex - 1)
+      setFocusIndex(Math.max(focusIndex - 1, 0))
     } else {
       setInputFocus()
     }
@@ -107,6 +114,7 @@ export const InputTags = ({
           onChange={onchange}
           onKeyUp={onkeyup}
           autoFocus
+          {...rest}
         />
       </div>
       <button

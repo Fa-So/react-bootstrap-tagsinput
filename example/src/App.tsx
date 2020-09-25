@@ -7,7 +7,7 @@ import 'react-bootstrap-tagsinput/dist/index.css'
 const App = () => {
   const [state, setState] = useState<string[]>([])
   return (
-    <div style={{margin: 10}}>
+    <div style={{ margin: 10 }}>
       <InputTags values={state} onChange={(values) => setState(values)} />
       <hr />
       <ol>
