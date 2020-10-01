@@ -45,7 +45,7 @@ const App = () => {
   )
 }
 ```
-
+## [Demo](https://fa-so.github.io/react-bootstrap-tagsinput/)
 ## License
 
 MIT © [Fahri Sönmez](https://github.com/Fa-So)
