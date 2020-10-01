@@ -41,7 +41,8 @@ jobs:
 
       - name: Build gh-page 📝
         run: |
-          cd example
+          ln -s node_modules example/node_modules
+          cd ./example
           npm run build
           cd ..
   
