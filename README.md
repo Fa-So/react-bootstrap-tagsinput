@@ -2,7 +2,7 @@
 
 > Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/react-bootstrap-tagsinput.svg)](https://www.npmjs.com/package/react-bootstrap-tagsinput) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Action](https://github.com//react-bootstrap-tagsinput/workflows/Continuous%20Integration/badge.svg)](https://github.com/Fa-So/react-bootstrap-tagsinput/actions?query=workflow%3A%22Continuous+Integration%22)[![NPM](https://img.shields.io/npm/v/react-bootstrap-tagsinput.svg)](https://www.npmjs.com/package/react-bootstrap-tagsinput) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
