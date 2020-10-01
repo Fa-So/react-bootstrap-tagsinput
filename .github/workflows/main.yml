@@ -43,7 +43,8 @@ jobs:
         run: |
           ln -s node_modules example/node_modules
           cd ./example
-          npm run build
+          npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
+          npx react-app-rewired build
           cd ..
   
       - name: Deploy gh-page🚀
