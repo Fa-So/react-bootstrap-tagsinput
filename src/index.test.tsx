@@ -171,10 +171,11 @@ describe('InputTags', (): void => {
 
   it('should delete the tag when click on delete button and focus inside input field', () => {
     render(<InputTags values={['one', 'two']} onTags={jest.fn()} />)
+    screen.getAllByTestId('tag-element')[1].focus()
     const deleteButton = screen.getAllByTestId(
       'tag-clean-element'
     )[1] as HTMLButtonElement
     fireEvent.click(deleteButton)
-    expect(document.activeElement).toBe(screen.getByTestId('input-tags'))
+    expect(document.activeElement).toBe(screen.getAllByTestId('tag-element')[0])
   })
 })

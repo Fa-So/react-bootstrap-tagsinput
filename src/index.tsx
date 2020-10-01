@@ -151,7 +151,7 @@ interface ElementProps {
 const Element = (props: ElementProps): JSX.Element => {
   const [focus, setFocus] = useState(false)
   const onclick = () => {
-    props.onRemove(props.index, props.focus)
+    props.onRemove(props.index, focus)
   }
   const ref = useRef<HTMLDivElement>(null)
   useLayoutEffect(() => {
@@ -181,6 +181,12 @@ const Element = (props: ElementProps): JSX.Element => {
         props.className
       )}
       onKeyUp={onkeydown}
+      onFocus={() => {
+        setFocus(true)
+      }}
+      onBlur={() => {
+        setFocus(false)
+      }}
     >
       {props.value}
       <button
