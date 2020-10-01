@@ -41,7 +41,6 @@ jobs:
 
       - name: Build gh-page 📝
         run: |
-          ln -s node_modules example/node_modules
           cd ./example
           npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
           npx react-app-rewired build
