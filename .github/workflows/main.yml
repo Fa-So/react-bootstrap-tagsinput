@@ -30,9 +30,24 @@ jobs:
       - name: test 🐝
         run: npm test
 
+      - name: build 🔗
+        run: npm run build
+
       - name: Upload 📁
         uses: actions/upload-artifact@v2
         with:
           name: bundle
           path: dist
+
+      - name: build gh-page 📝
+        run: |
+          cd examples
+          npm run build
+          cd ..
   
+      - name: Deploy gh-page🚀
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./example/build/
