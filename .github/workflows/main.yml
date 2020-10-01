@@ -27,10 +27,10 @@ jobs:
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: npm install
         
-      - name: test 🐝
+      - name: Test 🐝
         run: npm test
 
-      - name: build 🔗
+      - name: Build 🔗
         run: npm run build
 
       - name: Upload 📁
@@ -39,9 +39,9 @@ jobs:
           name: bundle
           path: dist
 
-      - name: build gh-page 📝
+      - name: Build gh-page 📝
         run: |
-          cd examples
+          cd example
           npm run build
           cd ..
   
