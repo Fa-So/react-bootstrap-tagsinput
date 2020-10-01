@@ -5,7 +5,7 @@
     "plugin:prettier/recommended",
     "plugin:react/recommended", // React specific linting rules for ESLint
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:react-hooks"
+    "plugin:react-hooks/recommended"
   ],
   "env": {
     "node": true

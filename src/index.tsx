@@ -7,20 +7,29 @@ import React, {
   useState
 } from 'react'
 import './styles.module.scss'
-import { Cancel, Delete } from './svg-icons'
+import { Cancel } from './svg-icons'
+import classnames from 'classnames'
+
+export type TagsValue = {
+  values: string[]
+  name?: string
+}
 
 interface InputTagsProps {
-  iconClear?: JSX.Element | string
   placeholder?: string
-  onChange: (values: string[]) => void
+  onTags: (value: TagsValue) => void
   values: string[]
+  name?: string
+  elementClassName?: string
 }
 
 export const InputTags = ({
   placeholder,
   values,
-  onChange,
-  iconClear = <Delete />,
+  onTags,
+  name,
+  className,
+  elementClassName,
   ...rest
 }: InputTagsProps & HtmlHTMLAttributes<HTMLInputElement>): JSX.Element => {
   const [terms, setTerms] = useState<string[]>(values)
@@ -28,25 +37,26 @@ export const InputTags = ({
   const [focusIndex, setFocusIndex] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  useLayoutEffect(() => {
-    if (terms.length === 0) {
-      setInputFocus()
-    }
-    onChange(terms)
-  }, [terms.length])
-
-  useEffect(() => {
-    if (terms.length === 0) {
-      setInputFocus()
-    }
-  }, [])
-
-  const setInputFocus = () => {
-    if (inputRef.current) {
+  const forceInputFocus = () => {
+    if (inputRef.current && focusIndex === -1) {
       inputRef.current.focus()
-      setFocusIndex(-1)
     }
   }
+
+  useLayoutEffect(() => {
+    if (terms.length === 0) {
+      setFocusIndex(-1)
+    }
+    onTags({ values: terms, name: name })
+  }, [terms.length]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setTerms(values)
+  }, [values])
+
+  useEffect(() => {
+    forceInputFocus()
+  }, [focusIndex]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value)
@@ -55,79 +65,76 @@ export const InputTags = ({
   const onkeyup = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = event
     const currentValue = value.trim()
-    if ((key === 'Enter' || key === ' ') && currentValue) {
+    const isEndOfText = event.currentTarget.selectionEnd === currentValue.length
+    const isPossibleRight =
+      (isEndOfText || currentValue.length === 0) && terms.length > 0
+    if ((key === 'Enter' || key === ' ') && currentValue != '') {
       event.preventDefault()
       setTerms([...terms, currentValue])
       setValue('')
-      setInputFocus()
+      setFocusIndex(-1)
     } else if (
-      key === 'Backspace' &&
-      currentValue.length === 0 &&
-      terms.length > 0
+      (key === 'Backspace' || key === 'ArrowLeft') &&
+      isPossibleRight
     ) {
+      event.preventDefault()
       setFocusIndex(terms.length - 1)
-    } else if (key === 'ArrowLeft') {
-      setFocusIndex(terms.length - 1)
+    } else if (key === 'ArrowRight' && isPossibleRight) {
+      event.preventDefault()
+      setFocusIndex(0)
     }
   }
 
-  const onremove = (index: number, focus: boolean) => {
+  const handleRemove = (index: number, focus: boolean) => {
     setTerms(terms.filter((_, i) => i !== index))
     if (focus) {
       setFocusIndex(Math.max(focusIndex - 1, 0))
     } else {
-      setInputFocus()
+      forceInputFocus()
     }
   }
 
   const setSelectedIndex = (index: number) => {
-    if (index < terms.length) {
+    if (index < terms.length && index > -1) {
       setFocusIndex(index)
     } else {
-      setInputFocus()
+      setFocusIndex(-1)
     }
   }
 
   return (
-    <div className='input-group'>
-      <div className='form-control d-inline-flex flex-wrap'>
-        {terms.map((item, index) => {
-          const focus = focusIndex === index
-          return (
-            <Element
-              key={`${item}${index}`}
-              value={item}
-              index={index}
-              onRemove={onremove}
-              focus={focus}
-              setSelectedIndex={setSelectedIndex}
-            />
-          )
-        })}
-        <input
-          ref={inputRef}
-          type='text'
-          className='border-0 w-auto flex-fill input-tags'
-          placeholder={placeholder}
-          aria-label={placeholder}
-          value={value}
-          onChange={onchange}
-          onKeyUp={onkeyup}
-          autoFocus
-          {...rest}
-        />
-      </div>
-      <button
-        className='btn btn-outline-secondary'
-        type='button'
-        id='button-clearAll'
-        onClick={() => {
-          setTerms([])
-          setValue('')
-        }}
-      >
-        {iconClear}
-      </button>
+    <div className='form-control d-inline-flex flex-wrap'>
+      {terms.map((item, index) => {
+        const focus = focusIndex === index
+        return (
+          <Element
+            key={`${item}${index}`}
+            value={item}
+            index={index}
+            onRemove={handleRemove}
+            focus={focus}
+            onSelectedIndex={setSelectedIndex}
+            className={elementClassName}
+          />
+        )
+      })}
+      <input
+        data-testid='input-tags'
+        ref={inputRef}
+        type='text'
+        className={classnames(
+          'border-0 w-auto flex-fill input-tags',
+          className
+        )}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        value={value}
+        onChange={onchange}
+        onKeyUp={onkeyup}
+        autoFocus
+        name={name}
+        {...rest}
+      />
     </div>
   )
 }
@@ -136,11 +143,13 @@ interface ElementProps {
   value: string
   index: number
   onRemove: (index: number, focus: boolean) => void
-  setSelectedIndex: (index: number) => void
+  onSelectedIndex: (index: number) => void
   focus: boolean
+  className?: string
 }
 
 const Element = (props: ElementProps): JSX.Element => {
+  const [focus, setFocus] = useState(false)
   const onclick = () => {
     props.onRemove(props.index, props.focus)
   }
@@ -153,24 +162,29 @@ const Element = (props: ElementProps): JSX.Element => {
 
   const onkeydown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const { key } = event
+    event.preventDefault()
     if (key === 'Backspace' || key === 'Delete') {
-      event.preventDefault()
       props.onRemove(props.index, props.focus)
-    } else if (key === 'ArrowLeft' && props.index > 0) {
-      props.setSelectedIndex(props.index - 1)
+    } else if (key === 'ArrowLeft') {
+      props.onSelectedIndex(props.index - 1)
     } else if (key === 'ArrowRight') {
-      props.setSelectedIndex(props.index + 1)
+      props.onSelectedIndex(props.index + 1)
     }
   }
   return (
     <div
+      data-testid='tag-element'
       ref={ref}
       tabIndex={0}
-      className='badge bg-secondary bg-gradient mr-1 my-auto py-auto pr-0 '
-      onKeyDown={onkeydown}
+      className={classnames(
+        'badge bg-secondary bg-gradient mr-1 my-auto py-auto pr-0 ',
+        props.className
+      )}
+      onKeyUp={onkeydown}
     >
       {props.value}
       <button
+        data-testid='tag-clean-element'
         aria-label='remove path fragment'
         tabIndex={-1}
         className='border-0 bg-transparent ml-3 mr-1 my-auto py-auto px-0'

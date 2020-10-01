@@ -8,7 +8,19 @@ const App = () => {
   const [state, setState] = useState<string[]>([])
   return (
     <div style={{ margin: 10 }}>
-      <InputTags values={state} onChange={(values) => setState(values)} />
+      <div className='input-group'>
+        <InputTags values={state} onTags={(value) => setState(value.values)} />
+        <button
+          className='btn btn-outline-secondary'
+          type='button'
+          data-testid='button-clearAll'
+          onClick={() => {
+            setState([])
+          }}
+        >
+          Delete all
+        </button>
+      </div>
       <hr />
       <ol>
         {state.map((item, index) => (
