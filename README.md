@@ -13,7 +13,7 @@ npm install --save react-bootstrap-tagsinput
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import { InputTags } from 'react-bootstrap-tagsinput'
 import 'react-bootstrap-tagsinput/dist/index.css'
@@ -21,8 +21,20 @@ import 'react-bootstrap-tagsinput/dist/index.css'
 const App = () => {
   const [state, setState] = useState<string[]>([])
   return (
-    <div style={{margin: 10}}>
-      <InputTags values={state} onChange={(values) => setState(values)} />
+    <div style={{ margin: 10 }}>
+      <div className='input-group'>
+        <InputTags values={state} onTags={(value) => setState(value.values)} />
+        <button
+          className='btn btn-outline-secondary'
+          type='button'
+          data-testid='button-clearAll'
+          onClick={() => {
+            setState([])
+          }}
+        >
+          Delete all
+        </button>
+      </div>
       <hr />
       <ol>
         {state.map((item, index) => (
@@ -32,10 +44,8 @@ const App = () => {
     </div>
   )
 }
-
-export default App
 ```
 
 ## License
 
-MIT © [Fa-So](https://github.com/Fa-So)
+MIT © [Fahri Sönmez](https://github.com/Fa-So)
