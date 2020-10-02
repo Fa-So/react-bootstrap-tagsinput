@@ -1,8 +1,7 @@
-name: Continuous Integration
+name: "✨ Continuous Integration"
 
 on:
   push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -10,45 +9,47 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: "♻ build"
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout 🛎️
+      - name: "🛎️ Checkout"
         uses: actions/checkout@v2
 
-      - name: Setup node 📦
+      - name: "🟢 Setup node"
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
       
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: "👟 NPM install"
         run: npm install
         
-      - name: Test 🐝
+      - name: "🐝 Test"
         run: npm test
 
-      - name: Build 🔗
+      - name: "🥁 Build"
         run: npm run build
 
-      - name: Upload 📁
+      - name: "🗳️ Upload"
         uses: actions/upload-artifact@v2
         with:
           name: bundle
           path: dist
 
-      - name: Build gh-page 📝
+      - name: "📝 Build gh-page"
         run: |
           cd ./example
           npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
           npx react-app-rewired build
           cd ..
   
-      - name: Deploy gh-page🚀
+      - name: "🚀 Deploy gh-page"
         if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./example/build/
+
+          # secrets.NPM_TOKEN_AUTH
