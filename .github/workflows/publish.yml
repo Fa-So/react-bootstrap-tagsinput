@@ -1,0 +1,87 @@
+name: "📣 Package publish"  
+
+on:
+  release:
+    types: [ created ]
+  
+jobs:
+  build:
+    name: "♻ build and publish gh-pages"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "🛎️ Checkout"
+        uses: actions/checkout@v2
+
+      - name: "🟢 Setup node"
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      
+      - name: "👟 NPM install"
+        run: npm ci
+
+      - name: "🐝 Test"
+        run: npm test
+
+      - name: "🥁 Build"
+        run: npm run build
+        
+  publish-npm:
+      needs: build
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: "🛎️ Checkout"
+        uses: actions/checkout@v2
+
+      - name: "🟢 Setup node"
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      
+      - name: "👟 NPM install"
+        run: npm ci
+
+      - name: "🥁 Build"
+        run: npm run build
+
+      - name: "💕Copy Readme"
+        run: |
+            cp README.md dist
+            cp package.json dist
+            cd dist
+            npm publish --access public
+        env:
+            NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
+
+  publish-ghpages:
+    needs: build
+    name: '♻ build and publish gh-pages'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: "🛎️ Checkout"
+        uses: actions/checkout@v2
+
+      - name: "🟢 Setup node"
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      
+      - name: "👟 NPM install"
+        run: npm ci
+            
+      - name: "📝 Build gh-page"
+        run: |
+          cd ./example
+          npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
+          npx react-app-rewired build
+          cd ..
+  
+      - name: "🚀 Deploy gh-page"
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./example/build/

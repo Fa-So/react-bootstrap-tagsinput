@@ -2,7 +2,7 @@
   "name": "react-bootstrap-tagsinput",
   "version": "0.1.0",
   "description": "Made with create-react-library",
-  "author": "Fa-So",
+  "author": "Fahri Sönmez",
   "license": "MIT",
   "repository": "Fa-So/react-bootstrap-tagsinput",
   "main": "dist/index.js",
@@ -10,6 +10,15 @@
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
+  },
+  "keywords": [
+    "react",
+    "bootstrap",
+    "input",
+    "component"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "prettier": "node node_modules/prettier/bin-prettier.js --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",

@@ -5,16 +5,12 @@ on:
   pull_request:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
     name: "♻ build"
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: "🛎️ Checkout"
         uses: actions/checkout@v2
 
@@ -24,7 +20,7 @@ jobs:
           node-version: '14.x'
       
       - name: "👟 NPM install"
-        run: npm install
+        run: npm ci
         
       - name: "🐝 Test"
         run: npm test
@@ -38,18 +34,17 @@ jobs:
           name: bundle
           path: dist
 
-      - name: "📝 Build gh-page"
-        run: |
-          cd ./example
-          npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
-          npx react-app-rewired build
-          cd ..
-  
-      - name: "🚀 Deploy gh-page"
-        if: github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./example/build/
-
           # secrets.NPM_TOKEN_AUTH
+  #     - name: "📝 Build gh-page"
+  #       run: |
+  #         cd ./example
+  #         npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
+  #         npx react-app-rewired build
+  #         cd ..
+  
+  #     - name: "🚀 Deploy gh-page"
+  #       if: github.ref == 'refs/heads/master'
+  #       uses: peaceiris/actions-gh-pages@v3
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         publish_dir: ./example/build/
