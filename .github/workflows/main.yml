@@ -39,7 +39,7 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    name: '♻ Create release/ersion bundle'
+    name: '♻ Create release/Version bundle'
     runs-on: ubuntu-latest
 
     steps:
@@ -51,6 +51,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
+
+    - name: "👟 NPM install"
+      run: npm ci
 
     - name: "🥁 Build bundle"
       run: |
