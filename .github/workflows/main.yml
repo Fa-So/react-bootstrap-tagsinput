@@ -39,7 +39,7 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    name: '♻ create release / version bundle'
+    name: '♻ Create release/ersion bundle'
     runs-on: ubuntu-latest
 
     steps:
@@ -54,7 +54,7 @@ jobs:
 
     - name: "🥁 Build bundle"
       run: |
-        npm run bundle
+        npm run build
         zip -r dist-bundle.zip dist
     - name: "💬 Create release / version"
       id: create_version
