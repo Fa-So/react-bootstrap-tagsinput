@@ -1,4 +1,6 @@
 name: "✨ Continuous Integration"
+env:
+  NODE_VERSION: '14.x'
 
 on:
   push:
@@ -17,11 +19,11 @@ jobs:
       - name: "🟢 Setup node"
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
-      
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: "👟 NPM install"
         run: npm ci
-        
+
       - name: "🐝 Test"
         run: npm test
 
@@ -41,7 +43,7 @@ jobs:
   #         npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
   #         npx react-app-rewired build
   #         cd ..
-  
+
   #     - name: "🚀 Deploy gh-page"
   #       if: github.ref == 'refs/heads/master'
   #       uses: peaceiris/actions-gh-pages@v3
