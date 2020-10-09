@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-tagsinput",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Made with create-react-library",
   "author": "Fahri Sönmez",
   "license": "MIT",
@@ -10,6 +10,7 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
+  "types": "dist/index.d.ts",
   "source": "src/index.tsx",
   "engines": {
     "node": ">=10"
