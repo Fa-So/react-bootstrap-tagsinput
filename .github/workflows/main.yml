@@ -85,12 +85,13 @@ jobs:
         asset_name: dist-bundle.zip
         asset_content_type: application/zip
 
+        # npm publish --soenmez:registry='https://npm.pkg.github.com' --access=public --scope=@soenmez/react-bootstrap-tagsinput
     - name: "💕npm publish"
       id: publish
       run: |
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        npm publish --soenmez:registry='https://npm.pkg.github.com' --access=public --scope=@soenmez/react-bootstrap-tagsinput
+        npm publish --access public
       env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
