@@ -85,7 +85,7 @@ jobs:
         asset_name: dist-bundle.zip
         asset_content_type: application/zip
 
-    - name: "Setup NPM & GitHub auth"
+    - name: "⛏ Setup NPM & GitHub auth"
       run: |
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
