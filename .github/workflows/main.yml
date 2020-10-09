@@ -83,10 +83,13 @@ jobs:
         asset_content_type: application/zip
 
     - name: "💕npm publish"
-      run: npm publish --access public --scope=@soenmez/react-bootstrap-tagsinput
+      id: publish
+      run: |
+        echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        npm publish --access public --scope=@soenmez/react-bootstrap-tagsinput
       env:
           NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          # NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
 
     - name: "📝 Build gh-page"
       run: |
