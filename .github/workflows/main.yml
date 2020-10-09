@@ -41,7 +41,7 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    name: '♻ Create release/Version bundle and publish'
+    name: '♻ Create release/version bundle and publish'
     runs-on: ubuntu-latest
 
     steps:
@@ -63,6 +63,7 @@ jobs:
       run: |
         npm run build
         zip -r dist-bundle.zip dist
+
     - name: "💬 Create release / version"
       id: create_version
       uses: actions/create-release@v1
@@ -91,7 +92,7 @@ jobs:
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
         npm publish --soenmez:registry='https://npm.pkg.github.com' --access=public --scope=@soenmez/react-bootstrap-tagsinput
       env:
-          NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
