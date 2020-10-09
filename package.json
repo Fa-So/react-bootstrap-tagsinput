@@ -1,6 +1,6 @@
 {
-  "name": "@soenmez/react-bootstrap-tagsinput",
-  "version": "0.1.12",
+  "name": "react-bootstrap-tagsinput",
+  "version": "0.1.14",
   "description": "Made with create-react-library",
   "author": "Fahri Sönmez",
   "license": "MIT",
@@ -78,11 +78,5 @@
   "bugs": {
     "url": "https://github.com/Fa-So/react-bootstrap-tagsinput/issues"
   },
-  "homepage": "https://github.com/Fa-So/react-bootstrap-tagsinput#readme",
-  "directories": {
-    "example": "example"
-  },
-  "dependencies": {
-    "fsevents": "^2.1.2"
-  }
+  "homepage": "https://github.com/Fa-So/react-bootstrap-tagsinput#readme"
 }
