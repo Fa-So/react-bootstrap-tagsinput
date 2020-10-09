@@ -85,11 +85,13 @@ jobs:
     - name: "💕npm publish"
       id: publish
       run: |
+        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        npm publish --access public --scope=@soenmez/react-bootstrap-tagsinput
+        npm publish --soenmez:registry='https://npm.pkg.github.com' --access=public --scope=@soenmez/react-bootstrap-tagsinput
       env:
           NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: "📝 Build gh-page"
       run: |
