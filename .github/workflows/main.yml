@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
+          always-auth: true
+          NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
 
       - name: "👟 NPM install"
         run: npm ci
