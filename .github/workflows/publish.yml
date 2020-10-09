@@ -3,8 +3,9 @@ env:
   NODE_VERSION: '14.x'
 
 on:
-  release:
-    types: [ published ]
+  push:
+    branches:    
+    - 'releases/**'
 
 jobs:
   build:
