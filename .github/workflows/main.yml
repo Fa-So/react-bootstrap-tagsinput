@@ -39,7 +39,7 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    name: '♻ Create release/Version bundle'
+    name: '♻ Create release/Version bundle and publish'
     runs-on: ubuntu-latest
 
     steps:
@@ -51,6 +51,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
+        registry-url: https://registry.npmjs.org/
 
     - name: "👟 NPM install"
       run: npm ci
@@ -79,3 +80,22 @@ jobs:
         asset_path: ./dist-bundle.zip
         asset_name: dist-bundle.zip
         asset_content_type: application/zip
+
+    - name: "💕npm publish"
+      run: npm publish --access public
+      env:
+          NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
+
+    - name: "📝 Build gh-page"
+      run: |
+        cd ./example
+        npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
+        npx react-app-rewired build
+        cd ..
+
+    - name: "🚀 Deploy gh-page"
+      if: github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./example/build/
