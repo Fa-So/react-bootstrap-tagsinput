@@ -81,6 +81,13 @@ jobs:
         asset_name: dist-bundle.zip
         asset_content_type: application/zip
 
+    - name: "💕npm publish"
+      run: npm publish --access public
+      env:
+          NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: "📝 Build gh-page"
       run: |
         cd ./example
@@ -94,8 +101,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./example/build/
-
-    - name: "💕npm publish"
-      run: npm publish --access public
-      env:
-          NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
