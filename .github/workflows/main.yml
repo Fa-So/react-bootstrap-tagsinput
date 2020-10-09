@@ -83,12 +83,11 @@ jobs:
 
     - name: "💕npm publish"
       run: |
-        npm set registry https://registry.npmjs.org/
+        echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN_AUTH}}" > .npmrc
         npm publish --access public
       env:
           NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: "📝 Build gh-page"
       run: |
