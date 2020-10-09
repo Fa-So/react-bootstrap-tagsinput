@@ -82,7 +82,9 @@ jobs:
         asset_content_type: application/zip
 
     - name: "💕npm publish"
-      run: npm publish --access public
+      run: |
+        npm set registry https://registry.npmjs.org/
+        npm publish --access public
       env:
           NODE_AUTH_TOCKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
