@@ -83,9 +83,7 @@ jobs:
 
     - name: "💕npm publish"
       id: publish
-      run: |
-        npm config set '//npm.pkg.github.com/:_authToken' "${NPM_TOKEN}"
-        npm publish --access public --registry=https://npm.pkg.github.com/
+      run: npm publish --access public --registry=https://registry.npmjs.org/
       env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
@@ -104,3 +102,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./example/build/
+        
