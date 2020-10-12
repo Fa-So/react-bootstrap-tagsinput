@@ -87,7 +87,7 @@ jobs:
 
     - name: "⛏ Setup NPM & GitHub auth"
       run: |
-        rm .npmrc
+        rm .npmrc -f
         touch .npmrc
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
