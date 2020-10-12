@@ -85,23 +85,11 @@ jobs:
         asset_name: dist-bundle.zip
         asset_content_type: application/zip
 
-    - name: "⛏ Setup NPM & GitHub auth"
-      run: |
-        rm .npmrc -f
-        touch .npmrc
-        echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> .npmrc
-        echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        git config --global user.name "Fa-So"
-        git config --global user.email "$GITHUB_EMAIL"
-      env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # npm publish --soenmez:registry='https://npm.pkg.github.com' --access=public --scope=@soenmez/react-bootstrap-tagsinput
     
     - name: "💕npm publish"
       id: publish
-      run: npm publish --access public
+      run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
       env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
