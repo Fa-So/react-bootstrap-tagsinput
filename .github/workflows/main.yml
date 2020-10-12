@@ -39,7 +39,7 @@ jobs:
           path: dist
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    # if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     name: '♻ Create release/version bundle and publish'
     runs-on: ubuntu-latest
@@ -92,7 +92,6 @@ jobs:
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
         npm whoami
-        npm whoami --registry https://npm.pkg.github.com
         git config --global user.name "Fa-So"
         git config --global user.email "$GITHUB_EMAIL"
       env:
