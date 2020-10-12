@@ -91,7 +91,6 @@ jobs:
         touch .npmrc
         echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> .npmrc
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        npm whoami
         git config --global user.name "Fa-So"
         git config --global user.email "$GITHUB_EMAIL"
       env:
