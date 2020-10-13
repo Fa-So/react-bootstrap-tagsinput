@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-tagsinput",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Made with create-react-library",
   "author": "Fahri Sönmez",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "component"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry":"https://registry.npmjs.org/"
   },
   "scripts": {
     "prettier": "node node_modules/prettier/bin-prettier.js --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",

@@ -51,6 +51,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
+        registry-url: https://registry.npmjs.org/ # Needed for auth
 
     - name: "👟 NPM install"
       run: npm ci
