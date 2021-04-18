@@ -103,7 +103,7 @@ export const InputTags = ({
   }
 
   return (
-    <div className='form-control d-inline-flex flex-wrap'>
+    <div className='form-control h-auto d-inline-flex flex-wrap'>
       {terms.map((item, index) => {
         const focus = focusIndex === index
         return (
