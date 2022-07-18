@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   cacheDirectory: '<rootDir>/.cache/unit',
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*'],
+  collectCoverageFrom: ['<rootDir>/src/**/*', '!**/*.stories.*'],
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   coverageThreshold: {
