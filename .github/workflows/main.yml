@@ -1,6 +1,6 @@
 name: "✨ Continuous Integration"
 env:
-  NODE_VERSION: '14.x'
+  NODE_VERSION: '16.x'
 
 on:
   push:
@@ -92,15 +92,13 @@ jobs:
 
     - name: "📝 Build gh-page"
       run: |
-        cd ./example
-        npm install --save-dev react-app-rewired react-app-rewire-alias customize-cra
-        npx react-app-rewired build
-        cd ..
+        export NODE_OPTIONS=--openssl-legacy-provider
+        npm run build-storybook
 
     - name: "🚀 Deploy gh-page"
       if: github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v3
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./example/build/
-        
+        branch: gh-pages
+        folder: storybook-static # output folder from `npm run build-storybook`

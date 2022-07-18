@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs"
+    "module": "commonjs",
+    "lib": ["ES6", "ESNext"],
+    "noEmit": true,
+    "esModuleInterop": true
   }
 }

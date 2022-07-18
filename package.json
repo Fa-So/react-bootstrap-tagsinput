@@ -4,82 +4,84 @@
   "description": "Made with create-react-library",
   "author": "Fahri Sönmez",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Fa-So/react-bootstrap-tagsinput.git"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "main": "dist/index.min.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": "src/index.tsx",
-  "engines": {
-    "node": ">=10"
-  },
   "keywords": [
     "react",
     "bootstrap",
     "input",
-    "component"
+    "component",
+    "input tag",
+    "tag input",
+    "react input tag",
+    "react tag input component",
+    "react tag input"
   ],
-  "publishConfig": {
-    "access": "public",
-    "registry":"https://registry.npmjs.org/"
+  "directories": {
+    "example": "example"
   },
   "scripts": {
-    "prettier": "node node_modules/prettier/bin-prettier.js --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",
-    "prettier:ci": "node node_modules/prettier/bin-prettier.js --list-different \"./**/*.{js,jsx,ts,tsx,json,html}\"",
-    "build": "microbundle-crl --css-modules false --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --css-modules false --format modern,cjs",
-    "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 \"./src/**/*.{js,jsx,ts,tsx}\"",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom --coverage",
-    "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",
+    "prettier:ci": "prettier --list-different \"./**/*.{js,jsx,ts,tsx,json,html}\"",
+    "build:module": "tsc --project tsconfig.build.json",
+    "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js --source-map url",
+    "build:scss": "sass src/index.scss dist/index.css --source-map",
+    "build": "tsc -b --clean && npm run build:module && npm run build:minify && npm run build:scss",
+    "test": "jest --silent",
+    "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
-  "peerDependencies": {
-    "react": "^16.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fa-So/react-bootstrap-tagsinput.git"
   },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.6",
-    "@types/classnames": "^2.2.10",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.2",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
-    "babel-eslint": "^10.1.0",
-    "bootstrap": "^5.0.0-alpha1",
-    "classnames": "^2.2.6",
-    "cross-env": "^7.0.2",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.21.2",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "gh-pages": "^3.1.0",
-    "microbundle-crl": "^0.13.11",
-    "node-sass": "^4.14.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.3",
-    "typescript": "^4.0.3"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
   "bugs": {
     "url": "https://github.com/Fa-So/react-bootstrap-tagsinput/issues"
   },
-  "homepage": "https://github.com/Fa-So/react-bootstrap-tagsinput#readme"
+  "homepage": "https://fa-so.github.io/react-bootstrap-tagsinput/",
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack4": "^6.5.9",
+    "@storybook/manager-webpack4": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.5",
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.0.6",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "babel-loader": "^8.2.5",
+    "bootstrap": "^5.1.3",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.53.0",
+    "storybook-addon-sass-postcss": "^0.1.3",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4",
+    "uglify-js": "^3.16.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }

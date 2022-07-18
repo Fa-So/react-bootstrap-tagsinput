@@ -1,15 +1,22 @@
-// eslint-disable-next-line no-use-before-define
 import React, { useState } from 'react'
+import { InputTags } from './'
+import './index.scss'
 
-import { InputTags } from 'react-bootstrap-tagsinput'
-import 'react-bootstrap-tagsinput/dist/index.css'
+export default {
+  title: 'InputTags',
+  component: InputTags
+}
 
-const App = () => {
+const TemplateInputTags = (args: any) => {
   const [state, setState] = useState<string[]>([])
   return (
     <div style={{ margin: 10 }}>
       <div className='input-group'>
-        <InputTags values={state} onTags={(value) => setState(value.values)} />
+        <InputTags
+          values={state}
+          onTags={(value) => setState(value.values)}
+          {...args}
+        />
         <button
           className='btn btn-outline-secondary'
           type='button'
@@ -31,4 +38,4 @@ const App = () => {
   )
 }
 
-export default App
+export const InputTag = TemplateInputTags.bind([])

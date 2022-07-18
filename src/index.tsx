@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import './styles.module.scss'
+import './index.scss'
 import { Cancel } from './svg-icons'
 import classnames from 'classnames'
 
@@ -15,7 +15,7 @@ export type TagsValue = {
   name?: string
 }
 
-interface InputTagsProps {
+export interface InputTagsProps {
   placeholder?: string
   onTags: (value: TagsValue) => void
   values: string[]
@@ -177,7 +177,7 @@ const Element = (props: ElementProps): JSX.Element => {
       ref={ref}
       tabIndex={0}
       className={classnames(
-        'badge bg-secondary bg-gradient mr-1 my-auto py-auto pr-0 ',
+        'badge bg-secondary bg-gradient me-1 pe-1 justify-content-between',
         props.className
       )}
       onKeyUp={onkeydown}
@@ -193,7 +193,7 @@ const Element = (props: ElementProps): JSX.Element => {
         data-testid='tag-clean-element'
         aria-label='remove path fragment'
         tabIndex={-1}
-        className='border-0 bg-transparent ml-3 mr-1 my-auto py-auto px-0'
+        className='border-0 bg-transparent ps-auto pe-0'
         style={{ outline: 0 }}
         onClick={onclick}
       >
