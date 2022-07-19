@@ -1,3 +1,4 @@
+import { ComponentMeta } from '@storybook/react'
 import React, { useState } from 'react'
 import { InputTags } from './'
 import './index.scss'
@@ -5,10 +6,10 @@ import './index.scss'
 export default {
   title: 'InputTags',
   component: InputTags
-}
+} as ComponentMeta<typeof InputTags>
 
-const TemplateInputTags = (args: any) => {
-  const [state, setState] = useState<string[]>([])
+const TemplateInputTags = (args) => {
+  const [state, setState] = useState<string[]>([...args?.values])
   return (
     <div style={{ margin: 10 }}>
       <div className='input-group'>
@@ -39,3 +40,6 @@ const TemplateInputTags = (args: any) => {
 }
 
 export const InputTag = TemplateInputTags.bind([])
+InputTag.args = {
+  values: [] as string[]
+}
