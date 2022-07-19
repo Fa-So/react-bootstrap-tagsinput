@@ -2,5 +2,5 @@ dist
 coverage
 node_modules
 .vscode
-package-lock.jso
+package-lock.json
 example/build
