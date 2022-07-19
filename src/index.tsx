@@ -32,7 +32,7 @@ export const InputTags = ({
   elementClassName,
   ...rest
 }: InputTagsProps & HtmlHTMLAttributes<HTMLInputElement>): JSX.Element => {
-  const [terms, setTerms] = useState<string[]>(values)
+  const [terms, setTerms] = useState<string[]>([])
   const [value, setValue] = useState('')
   const [focusIndex, setFocusIndex] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -62,15 +62,29 @@ export const InputTags = ({
     setValue(event.currentTarget.value)
   }
 
+  const onkeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = event
+    const currentValue = value.trim()
+    if (key === 'Tab' && currentValue !== '') {
+      event.preventDefault()
+      setTerms([...terms, currentValue.replace(',', '')])
+      setValue('')
+      setFocusIndex(-1)
+    }
+  }
+
   const onkeyup = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = event
     const currentValue = value.trim()
     const isEndOfText = event.currentTarget.selectionEnd === currentValue.length
     const isPossibleRight =
       (isEndOfText || currentValue.length === 0) && terms.length > 0
-    if ((key === 'Enter' || key === ' ') && currentValue != '') {
+    if (
+      (key === 'Enter' || key === ' ' || key === 'Tab' || key === ',') &&
+      currentValue !== ''
+    ) {
       event.preventDefault()
-      setTerms([...terms, currentValue])
+      setTerms([...terms, currentValue.replace(',', '')])
       setValue('')
       setFocusIndex(-1)
     } else if (
@@ -131,6 +145,7 @@ export const InputTags = ({
         value={value}
         onChange={onchange}
         onKeyUp={onkeyup}
+        onKeyDown={onkeydown}
         autoFocus
         name={name}
         {...rest}

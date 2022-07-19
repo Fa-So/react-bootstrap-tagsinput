@@ -57,6 +57,21 @@ describe('InputTags', (): void => {
       values: ['hello']
     })
   })
+  it('should callback with value on tab', async () => {
+    const onchange = jest.fn()
+    render(<InputTags values={[]} onTags={onchange} />)
+    const input = screen.getByTestId('input-tags') as HTMLInputElement
+
+    await useEvent.type(input, 'hello')
+    // make sure input has new value / state
+    expect(input.value).toBe('hello')
+    // simulate space
+    await useEvent.keyboard('[Tab]')
+    expect(onchange).toBeCalledWith({
+      name: undefined,
+      values: ['hello']
+    })
+  })
 
   it('should not add a tag when input field is empty', async () => {
     const onChange = jest.fn()

@@ -8,25 +8,23 @@ export default {
   component: InputTags
 } as ComponentMeta<typeof InputTags>
 
-const TemplateInputTags = (args) => {
-  const [state, setState] = useState<string[]>([...args?.values])
+const TemplateInputTags = () => {
+  const [state, setState] = useState<string[]>([])
+
+  const onClear = () => {
+    setState([])
+  }
   return (
     <div style={{ margin: 10 }}>
       <div className='input-group'>
-        <InputTags
-          values={state}
-          onTags={(value) => setState(value.values)}
-          {...args}
-        />
+        <InputTags values={state} onTags={(value) => setState(value.values)} />
         <button
           className='btn btn-outline-secondary'
           type='button'
           data-testid='button-clearAll'
-          onClick={() => {
-            setState([])
-          }}
+          onClick={onClear}
         >
-          Delete all
+          Clear
         </button>
       </div>
       <hr />
@@ -40,6 +38,6 @@ const TemplateInputTags = (args) => {
 }
 
 export const InputTag = TemplateInputTags.bind([])
-InputTag.args = {
-  values: [] as string[]
+InputTag.parameters = {
+  controls: { hideNoControlsWarning: true }
 }
