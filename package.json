@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "postbuild": "cp package.json dist && cp LICENSE dist && cp README.md dist",
-    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,html}\"",
+    "prettier": "prettier --write \"./**/*.{css,scss,js,jsx,ts,tsx,json,html}\"",
     "prettier:ci": "prettier --list-different \"./**/*.{js,jsx,ts,tsx,json,html}\"",
     "build:module": "tsc --project tsconfig.build.json",
     "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js --source-map url",
