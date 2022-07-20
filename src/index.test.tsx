@@ -111,7 +111,7 @@ describe('InputTags', (): void => {
     const input = screen.getByTestId('input-tags') as HTMLInputElement
     expect(screen.getAllByTestId('tag-element')).toHaveLength(2)
     expect(screen.getAllByTestId('tag-clean-element')).toHaveLength(2)
-    await useEvent.type(input, '{arrowRight}')
+    await useEvent.type(input, ' {arrowRight}')
     expect(document.activeElement).toBe(screen.getAllByTestId('tag-element')[0])
   })
 

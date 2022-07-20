@@ -22,4 +22,5 @@ coverage
 example/build
 
 .cache
+.vscode
 storybook-static

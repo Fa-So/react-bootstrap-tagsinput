@@ -56,7 +56,8 @@ export const InputTags = ({
 
   useEffect(() => {
     forceInputFocus()
-  }, [focusIndex]) // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusIndex, inputRef.current])
 
   const onchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value)
@@ -76,24 +77,27 @@ export const InputTags = ({
   const onkeyup = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = event
     const currentValue = value.trim()
-    const isEndOfText = event.currentTarget.selectionEnd === currentValue.length
-    const isPossibleRight =
-      (isEndOfText || currentValue.length === 0) && terms.length > 0
-    if (
-      (key === 'Enter' || key === ' ' || key === 'Tab' || key === ',') &&
-      currentValue !== ''
-    ) {
+    const valueLength = currentValue.length
+    const currentTarget = event.currentTarget.selectionEnd || 0
+    const isEndOfText = currentTarget > valueLength
+    const isStartOfText = currentTarget === 0
+    const isPossibletermsMove = terms.length > 0
+    const isPossibleAddKeys =
+      key === 'Enter' || key === ' ' || key === 'Tab' || key === ','
+
+    if (isPossibleAddKeys && currentValue !== '') {
       event.preventDefault()
       setTerms([...terms, currentValue.replace(',', '')])
       setValue('')
       setFocusIndex(-1)
     } else if (
+      isStartOfText &&
       (key === 'Backspace' || key === 'ArrowLeft') &&
-      isPossibleRight
+      isPossibletermsMove
     ) {
       event.preventDefault()
       setFocusIndex(terms.length - 1)
-    } else if (key === 'ArrowRight' && isPossibleRight) {
+    } else if (isEndOfText && key === 'ArrowRight' && isPossibletermsMove) {
       event.preventDefault()
       setFocusIndex(0)
     }
