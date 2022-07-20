@@ -4,6 +4,10 @@
   "description": "A chip input field using bootstrap.",
   "author": "Fahri Sönmez",
   "license": "MIT",
+  "main": "dist/index.min.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.tsx",
   "keywords": [
     "react",
     "bootstrap",
@@ -16,12 +20,11 @@
     "react tag input"
   ],
   "scripts": {
-    "postbuild": "cp package.json dist && cp LICENSE dist && cp README.md dist",
     "prettier": "prettier --write \"./**/*.{css,scss,js,jsx,ts,tsx,json,html}\"",
     "prettier:ci": "prettier --list-different \"./**/*.{js,jsx,ts,tsx,json,html}\"",
     "build:module": "tsc --project tsconfig.build.json",
-    "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js --source-map url",
-    "build:scss": "sass src/index.scss dist/index.css --source-map && sass src/bootstrap.scss dist/bootstrap.css --source-map",
+    "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js",
+    "build:scss": "sass src/index.scss dist/index.css && sass src/bootstrap.scss dist/bootstrap.css",
     "build": "rm -fr dist && npm run build:module && npm run build:minify && npm run build:scss",
     "test": "jest --silent",
     "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,ts,tsx}\"",
