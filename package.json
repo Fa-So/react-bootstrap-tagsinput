@@ -24,7 +24,7 @@
     "prettier:ci": "prettier --list-different \"./**/*.{js,jsx,ts,tsx,json,html}\"",
     "build:module": "tsc --project tsconfig.build.json",
     "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js",
-    "build:scss": "sass src/index.scss dist/index.css && sass src/bootstrap.scss dist/bootstrap.css",
+    "build:scss": "sass --no-source-map src/index.scss dist/index.css && sass --no-source-map src/bootstrap.scss dist/bootstrap.css",
     "build": "rm -fr dist && npm run build:module && npm run build:minify && npm run build:scss",
     "test": "jest --silent",
     "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,ts,tsx}\"",

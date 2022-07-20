@@ -1,5 +1,9 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": false,
+    "inlineSources": false
+  },
   // 👇️ this may vary depending on how you
   // name your test files
   "exclude": ["src/**/*.test.ts*", "**/*.stories.*"]
