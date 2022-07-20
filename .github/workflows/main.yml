@@ -92,7 +92,6 @@ jobs:
 
     - name: "📝 Build gh-page"
       run: |
-        export NODE_OPTIONS=--openssl-legacy-provider
         npm run build-storybook
 
     - name: "🚀 Deploy gh-page"
