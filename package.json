@@ -1,7 +1,7 @@
 {
   "name": "react-bootstrap-tagsinput",
   "version": "0.7.2",
-  "description": "Made with create-react-library",
+  "description": "A chip input field using bootstrap.",
   "author": "Fahri Sönmez",
   "license": "MIT",
   "keywords": [
