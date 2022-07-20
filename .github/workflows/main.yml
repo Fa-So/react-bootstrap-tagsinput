@@ -56,39 +56,39 @@ jobs:
     - name: "👟 NPM install"
       run: npm ci
 
-    - name: "🥁 Build bundle"
-      run: |
-        npm run build
-        zip -r dist-bundle.zip dist
+    # - name: "🥁 Build bundle"
+    #   run: |
+    #     npm run build
+    #     zip -r dist-bundle.zip dist
 
-    - name: "💬 Create release / version"
-      id: create_version
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
+    # - name: "💬 Create release / version"
+    #   id: create_version
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: ${{ github.ref }}
+    #     release_name: ${{ github.ref }}
+    #     draft: false
+    #     prerelease: false
 
-    - name: "🚀 upload assets"
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_version.outputs.upload_url }}
-        asset_path: ./dist-bundle.zip
-        asset_name: dist-bundle.zip
-        asset_content_type: application/zip
+    # - name: "🚀 upload assets"
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_version.outputs.upload_url }}
+    #     asset_path: ./dist-bundle.zip
+    #     asset_name: dist-bundle.zip
+    #     asset_content_type: application/zip
 
-    - name: "💕npm publish"
-      id: publish
-      run: npm publish --access public --registry=https://registry.npmjs.org/
-      env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: "💕npm publish"
+    #   id: publish
+    #   run: npm publish --access public --registry=https://registry.npmjs.org/
+    #   env:
+    #       NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
+    #       NPM_TOKEN: ${{secrets.NPM_TOKEN_AUTH}}
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: "📝 Build gh-page"
       run: |
