@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react'
 import React, { useState } from 'react'
 import { InputTags } from './'
+import './bootstrap.scss'
 import './index.scss'
 
 export default {
