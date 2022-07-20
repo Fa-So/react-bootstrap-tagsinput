@@ -4,3 +4,4 @@ node_modules
 .vscode
 package-lock.json
 example/build
+storybook-static

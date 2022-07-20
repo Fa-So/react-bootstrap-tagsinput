@@ -8,6 +8,11 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": "src/index.tsx",
+  "files": [
+    "dist/*.*",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "react",
     "bootstrap",
@@ -28,7 +33,7 @@
     "build:module": "tsc --project tsconfig.build.json",
     "build:minify": "uglifyjs ./dist/index.js -o ./dist/index.min.js --source-map url",
     "build:scss": "sass src/index.scss dist/index.css --source-map",
-    "build": "tsc -b --clean && npm run build:module && npm run build:minify && npm run build:scss",
+    "build": "rm -fr dist && npm run build:module && npm run build:minify && npm run build:scss",
     "test": "jest --silent",
     "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,ts,tsx}\"",
     "storybook": "start-storybook -p 6006",
@@ -82,6 +87,7 @@
   },
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "bootstrap": "^5.2.0"
   }
 }

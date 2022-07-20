@@ -10,8 +10,6 @@ lerna-debug.log*
 
 .idea/
 
-dist/
-
 keys/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -97,6 +95,5 @@ typings/
 
 ### Sass template
 .sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
+
+storybook-static

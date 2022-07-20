@@ -5,3 +5,4 @@ node_modules/
 .snapshots/
 *.min.js
 example/build
+storybook-static
