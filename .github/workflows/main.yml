@@ -11,7 +11,8 @@ jobs:
   build:
     name: "♻ build"
     runs-on: ubuntu-latest
-
+    concurrency: ci-${{github.ref}}
+    
     steps:
       - name: "🛎️ Checkout"
         uses: actions/checkout@v2
@@ -92,10 +93,10 @@ jobs:
 
     - name: "📝 Build gh-page"
       run: |
+        npm run build
         npm run build-storybook
 
     - name: "🚀 Deploy gh-page"
-      if: github.ref == 'refs/heads/master'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
