@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputTags } from './'
 import './bootstrap.scss'
 import './index.scss'
@@ -9,12 +9,17 @@ export default {
   component: InputTags
 } as ComponentMeta<typeof InputTags>
 
-const TemplateInputTags = () => {
-  const [state, setState] = useState<string[]>([])
+const TemplateInputTags = (args) => {
+  const [state, setState] = useState<string[]>(args.values)
 
   const onClear = () => {
     setState([])
   }
+
+  useEffect(() => {
+    setState(args.values)
+  }, [args.values])
+
   return (
     <div style={{ margin: 10 }}>
       <div className='input-group'>
@@ -39,6 +44,9 @@ const TemplateInputTags = () => {
 }
 
 export const InputTag = TemplateInputTags.bind([])
-InputTag.parameters = {
-  controls: { hideNoControlsWarning: true }
+InputTag.args = {
+  values: ['test1', 'test2']
 }
+// InputTag.parameters = {
+//   controls: { hideNoControlsWarning: true }
+// }

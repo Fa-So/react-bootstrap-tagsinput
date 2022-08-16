@@ -9,12 +9,12 @@ describe('InputTags', (): void => {
   })
 
   it('should render InputTag', async () => {
-    render(<InputTags values={[]} onTags={jest.fn()} />)
+    render(<InputTags onTags={jest.fn()} />)
     expect(screen.getByTestId('input-tags')).toBeTruthy()
   })
 
   it('should be empty by default', async () => {
-    render(<InputTags values={[]} onTags={jest.fn()} />)
+    render(<InputTags onTags={jest.fn()} />)
     expect(
       (screen.getByTestId('input-tags') as HTMLInputElement).value
     ).toHaveLength(0)

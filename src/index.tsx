@@ -25,7 +25,7 @@ export type TagsValue = {
 export interface InputTagsProps {
   placeholder?: string
   onTags: (value: TagsValue) => void
-  values: string[]
+  values?: string[]
   name?: string
   elementClassName?: string
 }
@@ -39,7 +39,7 @@ export const InputTags = ({
   elementClassName,
   ...rest
 }: InputTagsProps & HtmlHTMLAttributes<HTMLInputElement>): JSX.Element => {
-  const [terms, setTerms] = useState<string[]>([])
+  const [terms, setTerms] = useState<string[]>(values || [])
   const [value, setValue] = useState('')
   const [focusIndex, setFocusIndex] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -58,7 +58,7 @@ export const InputTags = ({
   }, [terms.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setTerms(values)
+    setTerms(values || [])
   }, [values])
 
   useEffect(() => {
