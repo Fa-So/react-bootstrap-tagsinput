@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import useEvent from '@testing-library/user-event'
-import { InputTags, TagsValue } from '.'
+import { InputTags } from '.'
 
 describe('InputTags', (): void => {
   it('is truthy', (): void => {
